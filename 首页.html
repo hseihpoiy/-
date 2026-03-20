@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傩·迹 - 中国传统傩文化</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- 书法字体 -->
+    <style>
+         .font-mashan {
+            font-family: '宋体', cursive;
+        }
+        
+        .font-serif-sc {
+            font-family: '黑体', serif;
+        }
+        
+        /* 自定义样式 */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #d97706;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background-color: white;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-control-prev {
+            left: 20px;
+        }
+        
+        .carousel-control-next {
+            right: 20px;
+        }
+           @media (min-width: 768px) {
+
+        .nav-links-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+    </style>
+
+    <style>
+    /* 傩面具展示区域样式 */
+    .mask-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 四列布局 */
+        grid-template-rows: repeat(2, 1fr);    /* 两行布局 */
+        gap: 2rem; /* 卡片之间的间距 */
+        max-width: 1200px; /* 最大宽度 */
+        margin: 0 auto; /* 居中对齐 */
+        padding: 0 1rem; /* 两侧内边距 */
+    }
+    
+    /* 面具卡片样式 */
+    .mask-card {
+        position: relative;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(212, 209, 209, 0.821), 0 4px 6px -2px rgba(214, 210, 210, 0.919);
+        transition: all 0.3s ease;
+        aspect-ratio: 3/4; /* 竖版图片比例 */
+    }
+    
+    .mask-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(218, 208, 208, 0.888), 0 10px 10px -5px rgba(219, 203, 203, 0.893);
+    }
+    
+    /* 图片容器 */
+    .image-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    /* 面具图片样式 */
+    .mask-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .mask-card:hover .mask-image {
+        transform: scale(1.05);
+    }
+    
+    /* 渐变遮罩 */
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(169, 202, 221, 0.881), transparent 30%);
+        z-index: 1;
+    }
+    
+    /* 文本容器 */
+    .text-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.25rem;
+        z-index: 2;
+    }
+    
+    /* 卡片标题样式 */
+    .card-title {
+        font-family: 'Ma Shan Zheng', cursive;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* 卡片描述样式 */
+    .card-description {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 1024px) {
+        .mask-grid {
+            grid-template-columns: repeat(2, 1fr); /* 中等屏幕2列 */
+            grid-template-rows: repeat(4, 1fr);    /* 4行 */
+            gap: 1.5rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .mask-grid {
+            grid-template-columns: 1fr; /* 小屏幕1列 */
+            grid-template-rows: repeat(8, 1fr); /* 8行 */
+            gap: 1.25rem;
+            padding: 0 0.5rem;
+        }
+        
+        .mask-card {
+            aspect-ratio: 4/3; /* 小屏幕上调整为横版比例 */
+        }
+    }
+    
+    /* 查看更多按钮样式 */
+    .text-center {
+        text-align: center;
+    }
+    
+    .mt-12 {
+        margin-top: 3rem;
+    }
+    
+    .px-8 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .bg-primary {
+        background-color: #92400e;
+    }
+    
+    .text-white {
+        color: #fff;
+    }
+    
+    .rounded-full {
+        border-radius: 9999px;
+    }
+    
+    .hover\:bg-secondary:hover {
+        background-color: #b45309;
+    }
+    
+    .transition-colors {
+        transition-property: background-color, border-color, color, fill, stroke;
+        transition-duration: 300ms;
+    }
+    
+    .font-serif-sc {
+        font-family: 'Noto Serif SC', serif;
+    }
+</style>
+        <style>
+    /* 傩艺图片展示区域样式 */
+    
+    /* 响应式网格布局 */
+    .performance-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 四个等宽列 */
+        gap: 2rem; /* 盒子之间的间距 */
+        max-width: 1400px; /* 最大宽度 */
+        margin: 0 auto; /* 居中显示 */
+        padding: 0 2rem; /* 两边留有余量 */
+    }
+    
+    /* 图片盒子样式 */
+    .performance-card {
+        position: relative;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .performance-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 图片容器 */
+    .image-container {
+        height: 16rem; /* 固定高度 */
+        overflow: hidden;
+    }
+    
+    /* 图片样式 */
+    .performance-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .performance-card:hover .performance-image {
+        transform: scale(1.05);
+    }
+    
+    /* 渐变遮罩 */
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    }
+    
+    /* 文本容器 */
+    .text-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+    }
+    
+    /* 标题样式 */
+    .card-title {
+        font-family: 'Ma Shan Zheng', cursive;
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* 描述文本样式 */
+    .card-description {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.875rem;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 1024px) {
+        .performance-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .performance-grid {
+            grid-template-columns: 1fr;
+            padding: 0 1rem;
+        }
+        
+        .performance-grid {
+            gap: 1.5rem;
+        }
+    }
+  
+    
+</style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#92400e',
+                        secondary: '#b45309',
+                        accent: '#d97706',
+                        light: '#fef3c7',
+                        dark: '#44403c'
+                    },
+                    fontFamily: {
+                        'mashan': ['Ma Shan Zheng', 'cursive'],
+                        'serif-sc': ['Noto Serif SC', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 font-serif-sc text-dark">
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-mashan text-primary">傩·迹</a>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="../web大作业/首页.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+            </div>
+            
+            <!-- 用户头像 -->
+            <div class="hidden md:block">
+                <a href="../web大作业/登录.html" class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center hover:bg-stone-300 transition-colors">
+                    <i class="fa fa-user text-stone-600"></i>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 轮播图 -->
+    <section class="carousel mt-16 h-[80vh] min-h-[500px]">
+        <div class="carousel-inner h-full">
+            <!-- 轮播项1 -->
+            <div class="carousel-item h-full relative">
+                <img src="../web大作业/轮播1.jpg" 
+                     alt="傩戏表演" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-overlay flex items-center justify-center">
+                    <div class="text-center text-white px-4" data-aos="fade-up" data-aos-duration="1000">
+                        <h1 class="text-5xl md:text-7xl font-mashan mb-4 text-shadow">傩·迹</h1>
+                        <p class="text-xl md:text-2xl max-w-2xl mx-auto text-shadow">探索千年傩文化的神秘面纱，感受传统艺术的魅力与传承</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 轮播项2 -->
+            <div class="carousel-item h-full relative">
+                <img src="../web大作业/轮播3.jpg" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-overlay flex items-center justify-center">
+                    <div class="text-center text-white px-4" data-aos="fade-up" data-aos-duration="1000">
+                        <h2 class="text-4xl md:text-6xl font-mashan mb-4 text-shadow">傩舞飞扬</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto text-shadow">体验傩舞的刚劲有力，感受传统文化的生命力</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 轮播项3 -->
+            <div class="carousel-item h-full relative">
+                <img src="../web大作业/轮播2.png" 
+                     alt="傩戏面具" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-overlay flex items-center justify-center">
+                    <div class="text-center text-white px-4" data-aos="fade-up" data-aos-duration="1000">
+                        <h2 class="text-4xl md:text-6xl font-mashan mb-4 text-shadow">面具艺术</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto text-shadow">解读傩面具背后的文化内涵与象征意义</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 轮播项4 -->
+            <div class="carousel-item h-full relative">
+                <img src="../web大作业/轮播4.jpg" 
+                     alt="傩戏面具收藏" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-overlay flex items-center justify-center">
+                    <div class="text-center text-white px-4" data-aos="fade-up" data-aos-duration="1000">
+                        <h2 class="text-4xl md:text-6xl font-mashan mb-4 text-shadow">文化传承</h2>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto text-shadow">见证傩文化的千年传承与当代发展</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 轮播指示器 -->
+        <div class="carousel-indicators">
+            <div class="carousel-indicator active" data-index="0"></div>
+            <div class="carousel-indicator" data-index="1"></div>
+            <div class="carousel-indicator" data-index="2"></div>
+            <div class="carousel-indicator" data-index="3"></div>
+        </div>
+        
+        <!-- 轮播控制按钮 -->
+        <div class="carousel-control carousel-control-prev">
+            <i class="fa fa-angle-left"></i>
+        </div>
+        <div class="carousel-control carousel-control-next">
+            <i class="fa fa-angle-right"></i>
+        </div>
+    </section>
+
+    <!-- 文化溯源 -->
+    <section id="origin" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">傩文化溯源</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <img src="../web大作业/852240a266edcb98b144796e925ea17c.jpg" 
+                         alt="傩文化历史" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <h3 class="text-2xl font-mashan text-secondary mb-6">千年传承的神秘文化</h3>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化是中国传统文化的重要组成部分，起源于原始社会的巫术仪式，距今已有数千年的历史。它是一种以驱鬼逐疫、祈福禳灾为主要目的的民俗活动，融合了舞蹈、音乐、戏剧、绘画等多种艺术形式。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化广泛流传于中国各地，尤其在南方地区如安徽、江西、贵州、湖南等地最为盛行。不同地区的傩文化有着各自独特的风格和特色，但都保留了原始傩文化的核心元素。
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        随着时代的发展，傩文化逐渐从单纯的巫术仪式演变为一种综合性的民间艺术形式，成为中华民族文化宝库中的一颗璀璨明珠。
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- 修改后的傩面具展示部分 -->
+<section id="art" class="py-20 bg-stone-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-mashan text-primary mb-4">傩面具展示</h2>
+            <div class="w-24 h-1 bg-accent mx-auto"></div>
+            <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                傩面具是傩文化的重要组成部分，是傩仪式中不可或缺的道具。每一个面具都有其独特的象征意义和艺术价值。
+            </p>
+        </div>
+        
+        <!-- 8个竖版图片的网格布局 -->
+        <div class="mask-grid">
+            <!-- 面具1 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="image-container">
+                    <img src="../web大作业/山神.jpg" 
+                         alt="傩面具 - 山神" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">山神面具</h3>
+                    <p class="card-description">
+                        凶恶之相背后的美好寄托
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具2 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="image-container">
+                    <img src="../web大作业/钟馗.jpeg" 
+                         alt="傩面具 - 钟馗" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">钟馗面具</h3>
+                    <p class="card-description">
+                        承载民间驱邪纳福信仰传统
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具3 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="image-container">
+                    <img src="../web大作业/将军.webp" 
+                         alt="傩面具 - 将军" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">将军面具</h3>
+                    <p class="card-description">
+                        面具造型显得威武而庄重
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具4 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="image-container">
+                    <img src="../web大作业/天神.png" 
+                         alt="傩面具 - 天神" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">天神面具</h3>
+                    <p class="card-description">
+                        造型庄严，色彩华丽，象征着天神的神圣与威严
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具5 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="image-container">
+                    <img src="../web大作业/地神.webp" 
+                         alt="傩面具 - 地神" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">地神面具</h3>
+                    <p class="card-description">
+                       神秘的豳地傩面，是农耕民族图腾崇拜的遗存
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具6 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="image-container">
+                    <img src="../web大作业/寿星.png" 
+                         alt="傩面具 - 寿星" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">寿星面具</h3>
+                    <p class="card-description">
+                       造型祥和，寓意长寿安康，常用于祈福仪式
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具7 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="700">
+                <div class="image-container">
+                    <img src="../web大作业/夜叉.webp" 
+                         alt="傩面具 - 夜叉" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">夜叉面具</h3>
+                    <p class="card-description">
+                        夜叉面具造型狰狞，用于驱邪镇煞，威慑鬼魅
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 面具8 -->
+            <div class="mask-card" data-aos="fade-up" data-aos-delay="800">
+                <div class="image-container">
+                    <img src="../web大作业/土地公.png" 
+                         alt="傩面具 - 土地" 
+                         class="mask-image">
+                </div>
+                <div class="overlay"></div>
+                <div class="text-container">
+                    <h3 class="card-title">土地面具</h3>
+                    <p class="card-description">
+                        造型慈祥，象征着地方守护神，保佑一方平安
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+       
+    </div>
+</section>
+
+<!-- 傩艺图片展示 -->
+<section id="performance" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-mashan text-primary mb-4">傩艺风采</h2>
+            <div class="w-24 h-1 bg-accent mx-auto"></div>
+            <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                傩文化是一种融合多元宗教、民俗和艺术的传统文化形态，其亮点主要体现在以下几个方面：
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- 图片盒子1 -->
+            <div class="rounded-lg overflow-hidden shadow-xl group" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-64 overflow-hidden">
+                    <img src="../web大作业/历史悠久.jpg" 
+                         alt="傩戏表演" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <!-- 白色底黑字介绍 -->
+                <div class="bg-white p-4">
+                    <h3 class="text-xl font-mashan text-gray-900 mb-1">历史悠久</h3>
+    
+                    <p class="text-gray-600 text-sm mt-2">
+                        傩文化起源于先民的自然崇拜、图腾崇拜和巫术意识，自有文字记载以来，“傩” 就出现在殷商甲骨文中，距今至少已有三千年历史。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 图片盒子2 -->
+            <div class="rounded-lg overflow-hidden shadow-xl group" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-64 overflow-hidden">
+                    <img src="../web大作业/地域特色.jpg" 
+                         alt="贵州傩戏表演" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <!-- 白色底黑字介绍 -->
+                <div class="bg-white p-4">
+                    <h3 class="text-xl font-mashan text-gray-900 mb-1">地域特色鲜明</h3>        
+                    <p class="text-gray-600 text-sm mt-2">
+                        傩文化在中国各地呈现出不同的地域特色。如甘肃永靖傩舞继承了古代 “军礼” 的基本内容，面具多为勇猛善战的武士和将军。而湖南怀化的侗族傩戏 “咚咚推”，则融合了侗族文化、巫傩传统与中原戏剧元素。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 图片盒子3 -->
+            <div class="rounded-lg overflow-hidden shadow-xl group" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-64 overflow-hidden">
+                    <img src="../web大作业/c0e8d3c63a2337017b2797726bc442c9.jpg" 
+                         alt="面具制作" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <!-- 白色底黑字介绍 -->
+                <div class="bg-white p-4">
+                    <h3 class="text-xl font-mashan text-gray-900 mb-1">形式多样</h3>
+
+                    <p class="text-gray-600 text-sm mt-2">
+                        傩文化包括傩仪、傩俗、傩歌、傩舞、傩戏、傩艺等多种形式。其中，傩舞动作古朴粗犷，刚劲有力。傩戏则融合了舞蹈、音乐、戏剧、文学等多种艺术元素。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 图片盒子4 -->
+            <div class="rounded-lg overflow-hidden shadow-xl group" data-aos="fade-up" data-aos-delay="400">
+                <div class="h-64 overflow-hidden">
+                    <img src="../web大作业/b6b4dda101cc6cfe10f207e8ee03451f.jpg" 
+                         alt="文化传承" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <!-- 白色底黑字介绍 -->
+                <div class="bg-white p-4">
+                    <h3 class="text-xl font-mashan text-gray-900 mb-1">面具独特</h3>
+                  
+                    <p class="text-gray-600 text-sm mt-2">
+                       傩面具是傩文化中最具特色与魅力的元素之一。其形态各异，有人面、兽面、神面之分，不同的面具代表着不同的人物，具有特定的象征意义和文化内涵。
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 联系我们 -->
+    <section class="py-20 bg-white" >
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">联系我们</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+                <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                    如果您对傩文化感兴趣，或者想了解更多关于傩文化的信息，欢迎随时联系我们。
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <!-- 联系信息 -->
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-map-marker text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">地址</h4>
+                                    <p class="text-stone-600">浙江省温州市温州商学院</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-phone text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">电话</h4>
+                                    <p class="text-stone-600">6666-1234567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">邮箱</h4>
+                                    <p class="text-stone-600">nuo_culture@qq.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-clock-o text-primary text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-serif-sc font-bold mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-weibo"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-wechat"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-youtube-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 留言表单 -->
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">给我们留言</h3>
+                        
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-stone-700 font-serif-sc mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的姓名">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="email" class="block text-stone-700 font-serif-sc mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的邮箱">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-stone-700 font-serif-sc mb-2">主题</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入留言主题">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-stone-700 font-serif-sc mb-2">留言内容</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的留言内容"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-8 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-serif-sc">
+                                提交留言
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-2xl font-mashan mb-6">傩·迹</h3>
+                    <p class="text-stone-300 mb-6">
+                        傩·迹是一个致力于传承和弘扬中国传统傩文化的平台，我们希望通过展示傩文化的魅力，让更多人了解和喜爱这一珍贵的文化遗产。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="../web大作业/首页.html" class="text-stone-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="../web大作业/溯源.html" class="text-stone-300 hover:text-white transition-colors">溯源</a></li>
+                        <li><a href="../web大作业/赏器.html" class="text-stone-300 hover:text-white transition-colors">赏器</a></li>
+                        <li><a href="../web大作业/展演.html" class="text-stone-300 hover:text-white transition-colors">展演</a></li>
+                        <li><a href="../web大作业/守艺.html" class="text-stone-300 hover:text-white transition-colors">守艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">联系方式</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">浙江省温州市温州商学院</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">6666-1234567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">nuo_culture@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">订阅我们</h4>
+                    <p class="text-stone-300 mb-4">
+                        订阅我们的电子报，获取最新的傩文化资讯和活动信息。
+                    </p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="请输入您的邮箱" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                            <button type="submit" class="bg-accent hover:bg-primary transition-colors px-4 py-2 rounded-r-lg">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center">
+                <p class="text-stone-400">
+                    &copy; 2025 傩·迹 - 中国传统傩文化. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-angle-up text-xl"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 初始化AOS动画库
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // 轮播图功能
+            initCarousel();
+            
+            // 移动端菜单
+            initMobileMenu();
+            
+            // 返回顶部按钮
+            initBackToTop();
+            
+        });
+// 轮播图功能
+function initCarousel() {
+    const carousel = document.querySelector('.carousel');
+    const carouselInner = carousel.querySelector('.carousel-inner');
+    const carouselItems = carousel.querySelectorAll('.carousel-item');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    const prevButton = carousel.querySelector('.carousel-control-prev');
+    const nextButton = carousel.querySelector('.carousel-control-next');
+    
+    let currentIndex = 0;
+    const itemCount = carouselItems.length;
+    
+    // 克隆第一张和最后一张图片，实现无缝循环
+    const firstItem = carouselItems[0].cloneNode(true);
+    const lastItem = carouselItems[itemCount - 1].cloneNode(true);
+    
+    carouselInner.appendChild(firstItem);
+    carouselInner.insertBefore(lastItem, carouselItems[0]);
+    
+    // 更新项目总数
+    const newItemCount = itemCount + 2;
+    
+    // 设置轮播图宽度
+    carouselItems.forEach(item => {
+        item.style.width = '100%';
+    });
+    
+    // 设置初始位置（跳过克隆的最后一张）
+    let displayIndex = 1;
+    carouselInner.style.transform = `translateX(-${displayIndex * 100}%)`;
+    
+    // 更新指示器状态
+    function updateIndicators() {
+        indicators.forEach((indicator, index) => {
+            if (index === currentIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+    
+    // 更新轮播图位置
+    function updateCarousel() {
+        carouselInner.style.transform = `translateX(-${displayIndex * 100}%)`;
+        carouselInner.style.transition = 'transform 0.5s ease';
+        updateIndicators();
+    }
+    
+    // 重置位置（用于无缝循环）
+    function resetPosition() {
+        if (displayIndex === 0) {
+            // 从克隆的最后一张跳转到真正的最后一张
+            displayIndex = itemCount;
+            carouselInner.style.transition = 'none';
+            carouselInner.style.transform = `translateX(-${displayIndex * 100}%)`;
+        } else if (displayIndex === newItemCount - 1) {
+            // 从克隆的第一张跳转到真正的第一张
+            displayIndex = 1;
+            carouselInner.style.transition = 'none';
+            carouselInner.style.transform = `translateX(-${displayIndex * 100}%)`;
+        }
+    }
+    
+    // 下一张（始终向左翻页）
+    function nextSlide() {
+        displayIndex++;
+        currentIndex = (currentIndex + 1) % itemCount;
+        updateCarousel();
+    }
+    
+    // 上一张（正常切换）
+    function prevSlide() {
+        displayIndex--;
+        currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+        updateCarousel();
+    }
+    
+    // 点击指示器切换
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentIndex = index;
+            displayIndex = index + 1;
+            updateCarousel();
+        });
+    });
+    
+    // 绑定按钮事件
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    
+    // 监听过渡结束事件，用于无缝循环
+    carouselInner.addEventListener('transitionend', resetPosition);
+    
+    // 自动轮播（始终向左）
+    let autoplayInterval = setInterval(nextSlide, 5000);
+    
+    // 鼠标悬停时暂停自动轮播
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoplayInterval);
+    });
+    
+    // 鼠标离开时恢复自动轮播
+    carousel.addEventListener('mouseleave', () => {
+        autoplayInterval = setInterval(nextSlide, 5000);
+    });
+}
+        
+        // 移动端菜单
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 点击菜单项后关闭菜单
+            const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // 返回顶部按钮
+        function initBackToTop() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+    </script>
+</body>
+</html>

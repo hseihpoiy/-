@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傩·迹 - 守艺</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="守艺.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#92400e',
+                        secondary: '#b45309',
+                        accent: '#d97706',
+                        light: '#fef3c7',
+                        dark: '#44403c'
+                    },
+                    fontFamily: {
+                        'mashan': ['Ma Shan Zheng', 'cursive'],
+                        'serif-sc': ['Noto Serif SC', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 font-serif-sc text-dark">
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-mashan text-primary">傩·迹</a>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="../web大作业/首页.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+            </div>
+            
+            <!-- 用户头像 -->
+            <div class="hidden md:block">
+                <a href="../web大作业/登录.html" class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center hover:bg-stone-300 transition-colors">
+                    <i class="fa fa-user text-stone-600"></i>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 守艺页面内容 -->
+    <section id="craftsman" class="py-20 bg-stone-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">守艺之人</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+                <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                    傩文化的传承离不开一代又一代守艺人的默默奉献，他们用自己的心血和汗水守护着这份珍贵的文化遗产。
+                </p>
+            </div>
+            
+            <!-- 传承人档案 - 交替布局 -->
+            <div class="mb-20">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h3 class="text-3xl font-mashan text-primary mb-4">傩戏传承人</h3>
+                    <p class="text-lg text-stone-600 max-w-3xl mx-auto">
+                        他们是傩戏文化的活态载体，用一生的坚守传递着千年技艺与文化记忆
+                    </p>
+                </div>
+                
+                <!-- 传承人1 - 图片在左 -->
+                <div class="inheritor-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="inheritor-img">
+                        <img src="01张月福傩戏传承人.png" alt="张月福" class="w-full h-full object-cover">
+                    </div>
+                    <div class="inheritor-info">
+                        <h3>张月福</h3>
+                        <span class="title">国家级非遗传承人 | 德江傩堂戏</span>
+                        <p>从艺50余年的傩戏大师，精通傩戏表演、面具雕刻与唱腔。培养了20余名年轻传承人，为傩戏的活态传承做出卓越贡献。</p>
+                        <p>代表作品：《开山莽将》《钟馗斩鬼》《关公斩妖》等经典剧目。曾赴法国、日本等多国进行文化交流演出，被誉为"中国傩戏活化石"。</p>
+                    </div>
+                </div>
+                
+                <!-- 传承人2 - 图片在右 -->
+                <div class="inheritor-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="inheritor-img">
+                        <img src="02聂满娥.png" alt="聂满娥" class="w-full h-full object-cover">
+                    </div>
+                    <div class="inheritor-info">
+                        <h3>聂满娥</h3>
+                        <span class="title">国家级非遗传承人 | 沅陵辰州傩戏</span>
+                        <p>沅陵辰州傩戏首位女性传承人,她将女性视角融入表演，创新唱腔与动作，使女性角色更加鲜活。她积极走进校园和社区开展教学与公益演出，致力于傩戏的活态传承。</p>                    
+                        <p>演出的傩戏传统剧目包括《姜女晒衣》《捡菌子》《姜女下池》《观花教子》《卖猪》等。</p>
+                    </div>
+                </div>
+                
+                <!-- 传承人3 - 图片在左 -->
+                <div class="inheritor-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="inheritor-img">
+                        <img src="03姚家伟.png" alt="姚家伟" class="w-full h-full object-cover">
+                    </div>
+                    <div class="inheritor-info">
+                        <h3>姚家伟</h3>
+                        <span class="title">国家级传承人 | 池州傩戏</span>
+                        <p>贵池傩戏世家第五代传人，不仅精通传统剧目，还创新编导多部现代题材傩戏。建立傩戏传习所，免费授徒百余人。</p>
+                        <p>创新成果：将傩戏与黄梅戏唱腔融合，创作《乡村振兴》《抗疫英雄》等现代傩戏作品，推动傩戏的当代发展。</p>
+                    </div>
+                </div>
+                
+                <!-- 传承人4 - 图片在右 -->
+                <div class="inheritor-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="inheritor-img">
+                        <img src="04罗会武.png" alt="罗会武" class="w-full h-full object-cover">
+                    </div>
+                    <div class="inheritor-info">
+                        <h3>罗会武</h3>
+                        <span class="title">国家级非遗传承人 | 江西南丰傩舞</span>
+                        <p>自1959年加入石邮村傩班，逐步晋升至最高职务"大伯"。他擅长《开山》《雷公》等傩舞，曾多次率队赴日本、法国等国进行文化交流。</p>
+                        <p>他培养了新一代徒弟，并参与《傩情》等创新演出，其技艺和口述史已被国家图书馆建档保存。</p>
+                    </div>
+                </div>
+
+                
+            </div>
+            
+            <!-- 创新方案展示 -->
+            <div>
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h3 class="text-3xl font-mashan text-primary mb-4">创新保护方案</h3>
+                    <p class="text-lg text-stone-600 max-w-3xl mx-auto">
+                        在保护傩戏本真性的基础上，通过创新设计赋予其当代生命力
+                    </p>
+                </div>
+                
+                <!-- 方案1：《我不是戏神》—— 以内容为起点，引爆二次元关注 -->
+                <div class="innovation-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="innovation-card-header">
+                        <span>核心案例深度联动：从热门IP到视觉盛宴</span>
+                        <span class="tag">二次元</span>
+                    </div>
+                    <div class="innovation-card-body">
+                        <h3>1.文学引爆：《我不是戏神》以内容为起点</h3>
+                        <ul class="execution-plan">
+                            <li><strong>措施：</strong>在番茄小说平台热门玄幻小说《我不是戏神》中，深度融入傩戏核心元素。
+                                例如，角色"沈难"通过傩面具获得能力，剧情贯穿"人有难，方有傩"的价值观，
+                                生动诠释"摘下面具为人，戴上面具为神"的文化内涵。</li>
+                            <li><strong>效果：</strong>这种"惊鸿一瞥"式的艺术描写，
+                                激发了大量读者的好奇心，使"傩"这一古老文化符号成功进入年轻读者的视野。</li>
+                        </ul>
+                        <h3>2.演艺升华：刘宇"宇宙诗人"演唱会——开创性的文化融合示范</h3>
+                        <ul class="execution-plan">
+                            <li><strong>措施：</strong>​知名歌手刘宇在其2025年4月22日的"宇宙诗人"演唱会上，​创新性地将传统傩舞作为开场表演。
+                                他并非简单"合作"，而是作为表演的核心主体，以一段精心编排的傩舞为全场观众送上"见傩者，百灾消"的深切祝福。</li>
+                            <li><strong>效果：</strong>​ 这是一次极具影响力的示范。刘宇先生通过其个人影响力与艺术表达，
+                                ​主动将傩戏（傩舞）从小众知识提升为备受瞩目的舞台艺术，
+                                让数以万计的现场观众及线上粉丝直观感受到傩文化的震撼力与美好寓意，实现了"视觉盛宴"与"文化传承"的完美结合。
+                                ​是他让更多人认识并记住了傩舞。​</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 方案2：多元跨界联动，拓宽傩戏应用场景 -->
+                <div class="innovation-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="innovation-card-header">
+                        <span>多元跨界联动，拓宽傩戏应用场景</span>
+                        <span class="tag">多方联动</span>
+                    </div>
+                    <div class="innovation-card-body">
+                        <h3>角色引领，Cosplay互动：​</h3>
+                         <ul class="execution-plan">
+                            <li><strong>措施：</strong>利用小说中对沈难的人物、服装及"祭神舞"的精彩描述，鼓励并引导Cosplay爱好者进行角色扮演。</li>
+                            <li><strong>效果：</strong> 在抖音等平台，众多coser自发模仿沈难，将傩戏的视觉魅力通过动态视频进行演绎。
+                                这种"因角色而了解文化"的方式，极大地降低了傩戏的认知门槛，实现了从"粉角色"到"探文化"的转化。</li>
+                        </ul>
+                        
+                        <h3>​短剧创作，情景再现：​</h3>
+                        <ul class="execution-plan">
+                            <li><strong>措施：</strong>在傩戏通过小说、演唱会等渠道获得广泛知名度后，市场力量迅速响应。
+                                一些具有敏锐洞察力的短剧导演嗅到这一文化热点背后的热点，筹备并拍摄了以傩文化为核心的短剧。</li>
+                            <li><strong>效果：</strong>这股由市场自发驱动的创作力量，成功地将文化热度转化为大众娱乐产品。
+                                例如，当下热门的短剧​《傩戏》正是这一趋势的典型代表。
+                                它并非"支持或合作"的产物，而是文化破圈后引发的市场连锁反应，并进一步将其影响力下沉至更广泛的受众群体。</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 方案3：社交媒体激活，发动全民共创 -->
+                <div class="innovation-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="innovation-card-header">
+                        <span>社交媒体激活，发动全民共创</span>
+                        <span class="tag">短视频挑战</span>
+                    </div>
+                    <div class="innovation-card-body">
+                        <h3>"傩人有难"短视频挑战赛，连接现实生活：</h3>
+                        <ul class="execution-plan">
+                            <li><strong>措施：</strong>在抖音等平台发起 ​​#人有难 方为傩​ 主题短视频挑战活动。
+                                鼓励用户将傩戏"消除灾厄"的精神内核与现实生活中克服困难、给予祝福的场景相结合进行创作。</li>
+                            <li><strong>效果：</strong>设将傩戏从舞台艺术转化为每个人都可以参与的情感表达，
+                                使其核心价值观与当代人的生活产生共鸣，实现"活态"传承。</li>
+                            <li><strong>线下联动：</strong>线下联动：优秀创作者可参与"傩戏传承人面对面"特别节目录制</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 方案4： 可持续的商业与保护闭环 -->
+                 <div class="innovation-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="innovation-card-header">
+                        <span> 可持续的商业与保护闭环</span>
+                        <span class="tag">商业与保护</span>
+                    </div>
+                    <div class="innovation-card-body">
+                        <h3>顶级Coser演绎傩戏角色</h3>
+                        <p>以傩戏"开山莽将"、"钟馗"、"孟姜女"等经典角色为原型进行二次创作。在保留传统元素基础上，融入赛博朋克、国潮等现代审美。</p>
+                        
+                        <h3>执行方案</h3>
+                        <ul class="execution-plan">
+                            <li><strong>衍生开发：</strong>可以制作小说傩戏主题插图、角色立牌、傩面具书签、有声剧等文创周边。</li>
+                            <li><strong>商业转化与反哺：</strong>推出相关联名限定周边，并公开承诺将收益的10%​​ 直接用于傩戏的实地保护、传承人支持等公益项目。
+                                此举既能实现商业价值，又能让消费者直观感受到自身参与对文化保护的实际贡献，形成良性循环。</li>                   
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">联系我们</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+                <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                    如果您对傩文化感兴趣，或者想了解更多关于傩文化的信息，欢迎随时联系我们。
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <!-- 联系信息 -->
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-map-marker text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">地址</h4>
+                                    <p class="text-stone-600">浙江省温州市温州商学院</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-phone text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">电话</h4>
+                                    <p class="text-stone-600">6666-1234567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">邮箱</h4>
+                                    <p class="text-stone-600">nuo_culture@qq.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-clock-o text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">开放时间</h4>
+                                    <p class="text-stone-600">周一至周五: 9:00 - 17:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-serif-sc font-bold mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-weibo"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-wechat"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-youtube-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 留言表单 -->
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">给我们留言</h3>
+                        
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-stone-700 font-serif-sc mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的姓名">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="email" class="block text-stone-700 font-serif-sc mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的邮箱">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-stone-700 font-serif-sc mb-2">主题</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入留言主题">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-stone-700 font-serif-sc mb-2">留言内容</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的留言内容"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-8 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-serif-sc">
+                                提交留言
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-2xl font-mashan mb-6">傩·迹</h3>
+                    <p class="text-stone-300 mb-6">
+                        傩·迹是一个致力于传承和弘扬中国传统傩文化的平台，我们希望通过展示傩文化的魅力，让更多人了解和喜爱这一珍贵的文化遗产。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+             <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="../web大作业/首页.html" class="text-stone-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="../web大作业/溯源.html" class="text-stone-300 hover:text-white transition-colors">溯源</a></li>
+                        <li><a href="../web大作业/赏器.html" class="text-stone-300 hover:text-white transition-colors">赏器</a></li>
+                        <li><a href="../web大作业/展演.html" class="text-stone-300 hover:text-white transition-colors">展演</a></li>
+                        <li><a href="../web大作业/守艺.html" class="text-stone-300 hover:text-white transition-colors">守艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">联系方式</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">浙江省温州市温州商学院</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">6666-1234567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">nuo_culture@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">订阅我们</h4>
+                    <p class="text-stone-300 mb-4">
+                        订阅我们的电子报，获取最新的傩文化资讯和活动信息。
+                    </p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="请输入您的邮箱" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                            <button type="submit" class="bg-accent hover:bg-primary transition-colors px-4 py-2 rounded-r-lg">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-stone-400 text-sm">
+                        我们尊重您的隐私，不会向第三方分享您的信息。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center">
+                <p class="text-stone-400">
+                    &copy; 2025 傩·迹 - 中国传统傩文化. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-angle-up text-xl"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 初始化AOS动画库
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // 轮播图功能
+            const carousel = document.querySelector('.carousel');
+            const carouselInner = carousel.querySelector('.carousel-inner');
+            const carouselItems = carousel.querySelectorAll('.carousel-item');
+            const indicators = carousel.querySelectorAll('.carousel-indicator');
+            const prevButton = carousel.querySelector('.carousel-control-prev');
+            const nextButton = carousel.querySelector('.carousel-control-next');
+            
+            let currentIndex = 0;
+            const itemCount = carouselItems.length;
+            
+            // 设置轮播图宽度
+            carouselItems.forEach(item => {
+                item.style.width = '100%';
+            });
+            
+            // 更新轮播图位置
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // 更新指示器状态
+                indicators.forEach((indicator, index) => {
+                    if (index === currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 下一张
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateCarousel();
+            }
+            
+            // 上一张
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                updateCarousel();
+            }
+            
+            // 点击指示器切换
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+            });
+            
+            // 绑定按钮事件
+            prevButton.addEventListener('click', prevSlide);
+            nextButton.addEventListener('click', nextSlide);
+            
+            // 自动轮播
+            let autoplayInterval = setInterval(nextSlide, 5000);
+            
+            // 鼠标悬停时暂停自动轮播
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoplayInterval);
+            });
+            
+            // 鼠标离开时恢复自动轮播
+            carousel.addEventListener('mouseleave', () => {
+                autoplayInterval = setInterval(nextSlide, 5000);
+            });
+            
+            // 移动端菜单
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 点击菜单项后关闭菜单
+            const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // 返回顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 视频播放功能
+            const mainPlayButton = document.getElementById('main-play-button');
+            
+            mainPlayButton.addEventListener('click', () => {
+                alert('视频播放功能已触发，实际项目中将打开视频播放器');
+            });
+            
+            // 视频列表项点击事件
+            const videoItems = document.querySelectorAll('.group.cursor-pointer');
+            videoItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    alert('视频播放功能已触发，实际项目中将打开视频播放器');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

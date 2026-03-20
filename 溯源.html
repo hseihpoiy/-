@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傩文化溯源 - 傩·迹</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 书法字体 -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap');
+        
+        .font-mashan {
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .font-serif-sc {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 自定义样式 */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #d97706;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* 卡片悬停效果 */
+        .source-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .source-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#92400e',
+                        secondary: '#b45309',
+                        accent: '#d97706',
+                        light: '#fef3c7',
+                        dark: '#44403c'
+                    },
+                    fontFamily: {
+                        'mashan': ['Ma Shan Zheng', 'cursive'],
+                        'serif-sc': ['Noto Serif SC', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 font-serif-sc text-dark">
+     <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-mashan text-primary">傩·迹</a>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="../web大作业/首页.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+            </div>
+            
+            <!-- 用户头像 -->
+            <div class="hidden md:block">
+                <a href="../web大作业/登录.html" class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center hover:bg-stone-300 transition-colors">
+                    <i class="fa fa-user text-stone-600"></i>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="#performance" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="#craftsman" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 页面标题区 -->
+    <section class="mt-16 py-20 bg-cover bg-center relative" >
+        <div class="absolute inset-0 bg-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-mashan text-white mb-6 text-shadow">探索傩文化之源</h1>
+            <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto text-shadow">
+                追溯傩文化的历史脉络，探寻其信仰、制度、形态与地域的根源
+            </p>
+        </div>
+    </section>
+
+    <!-- 四个源头概览卡片 -->
+    <section class="py-16 bg-stone-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <!-- 信仰之源卡片 -->
+                <div class="source-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../web大作业/信仰之源.jpg" 
+                             alt="信仰之源" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-mashan text-secondary mb-4">信仰之源</h3>
+                        <p class="text-stone-600">
+                            源于原始自然崇拜与祖先崇拜，是先民对超自然力量的敬畏与祈求。
+                        </p>
+                        <a href="#belief-origin" class="inline-block mt-4 text-primary hover:text-accent transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 制度之源卡片 -->
+                <div class="source-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../web大作业/制度之源.png" 
+                             alt="制度之源" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-mashan text-secondary mb-4">制度之源</h3>
+                        <p class="text-stone-600">
+                            源于古代国家祭祀制度，形成了从宫廷到民间的完整组织体系。
+                        </p>
+                        <a href="#system-origin" class="inline-block mt-4 text-primary hover:text-accent transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 形态之源卡片 -->
+                <div class="source-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../web大作业/形态之源.png" 
+                             alt="形态之源" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-mashan text-secondary mb-4">形态之源</h3>
+                        <p class="text-stone-600">
+                            源于原始艺术的综合表现，融合舞蹈、音乐、绘画等多种艺术形式。
+                        </p>
+                        <a href="#form-origin" class="inline-block mt-4 text-primary hover:text-accent transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 地域之源卡片 -->
+                <div class="source-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../web大作业/地域之源.png" 
+                             alt="地域之源" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-mashan text-secondary mb-4">地域之源</h3>
+                        <p class="text-stone-600">
+                            源于各地独特的自然环境与文化传统，形成了丰富的地域特色。
+                        </p>
+                        <a href="#region-origin" class="inline-block mt-4 text-primary hover:text-accent transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 信仰之源 -->
+    <section class="py-20 bg-stone-50" id="belief-origin">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2">
+                    <img src="../web大作业/信仰之源.jpg" 
+                         alt="信仰之源" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-mashan text-primary mb-6">信仰之源</h2>
+                    <div class="w-20 h-1 bg-accent mb-8"></div>
+                    
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化的信仰源头可追溯至原始社会的自然崇拜和祖先崇拜。远古时期，人们对风雨雷电、生老病死等自然现象和生命过程无法理解，认为世间万物皆有神灵主宰，疾病灾祸则是邪灵作祟所致。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        为了祈求神灵庇佑、驱避邪祟，原始先民创造了以"傩"为名的祭祀仪式。这种仪式最初以模仿野兽动作的舞蹈为核心，配合咒语和特定的法器，形成了早期傩文化的雏形。
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        随着社会发展，傩的信仰内涵不断丰富，逐渐融合了阴阳五行、天人合一等哲学思想，形成了一套完整的信仰体系，成为连接人与神、人与自然的重要精神纽带。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 制度之源 -->
+    <section class="py-20 bg-white" id="system-origin">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2">
+                    <img src="../web大作业/制度之源.png" 
+                         alt="制度之源" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-mashan text-primary mb-6">制度之源</h2>
+                    <div class="w-20 h-1 bg-accent mb-8"></div>
+                    
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化的制度源头与古代社会的礼仪制度密切相关。早在商周时期，傩仪就已纳入国家祭祀体系，成为一种官方制度性的宗教仪式。《周礼》中便有关于"方相氏"主持傩仪的明确记载。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        随着中央集权制度的完善，傩仪的规模和规范也不断发展，形成了一套严格的组织形式、仪式流程和人员分工。从宫廷到民间，从官员到百姓，都在傩文化中扮演着特定角色，形成了上下贯通的制度网络。
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        这种制度化的传承方式，使得傩文化能够跨越千年而不绝，并在不同历史时期不断吸收新的元素，保持其生命力和适应性。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 形态之源 -->
+    <section class="py-20 bg-stone-50" id="form-origin">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2">
+                    <img src="../web大作业/形态之源.png" 
+                         alt="形态之源" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-mashan text-primary mb-6">形态之源</h2>
+                    <div class="w-20 h-1 bg-accent mb-8"></div>
+                    
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化的形态源头体现了原始艺术的综合特征。早期傩仪融合了舞蹈、音乐、诗歌、绘画等多种艺术形式，形成了一种综合性的艺术表现体系。面具作为傩文化最具代表性的形态符号，其起源可追溯至原始社会的图腾崇拜。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩舞的动作风格保留了许多原始舞蹈的特征，刚劲有力，节奏鲜明，既表现了对神灵的敬畏，也展现了先民与自然抗争的勇气。傩戏则是在傩仪基础上发展而来的戏剧形式，将宗教仪式与故事情节相结合，成为中国戏曲的重要源头之一。
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        这些艺术形态不断发展演变，形成了丰富多样的傩文化表现形式，成为中国传统艺术宝库中的重要组成部分。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 地域之源 -->
+    <section class="py-20 bg-white" id="region-origin">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2">
+                    <img src="../web大作业/地域之源.png" 
+                         alt="地域之源" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-mashan text-primary mb-6">地域之源</h2>
+                    <div class="w-20 h-1 bg-accent mb-8"></div>
+                    
+                    <p class="text-lg mb-6 leading-relaxed">
+                        傩文化的地域源头呈现出多元发展的特征。考古发现表明，早在新石器时代，中国南北各地就已出现了与傩文化相关的原始巫术活动。随着民族迁徙和文化交流，傩文化逐渐扩散到全国各地，并与当地文化相融合。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        不同地域的自然环境、生活方式和文化传统，造就了傩文化的地域特色。例如，南方地区的傩戏多与水稻种植、图腾崇拜相关；北方地区的傩仪则保留了更多游牧文化的痕迹。这种地域多样性，使得傩文化呈现出丰富斑斓的面貌。
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        从长江流域到黄河两岸，从西南边陲到东南沿海，傩文化在中华大地上生根发芽，成为连接各地文化的重要纽带。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 溯源时间轴 -->
+    <section class="py-20 bg-dark text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-mashan text-accent mb-4">傩文化发展历程</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="relative">
+                <!-- 时间轴中线 -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-accent"></div>
+                
+                <!-- 时间点1 -->
+                <div class="relative mb-16">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-accent z-10"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right md:pr-12">
+                            <h3 class="text-2xl font-mashan text-accent mb-2">原始社会时期</h3>
+                            <p class="text-stone-300">
+                                傩文化的雏形出现，表现为简单的驱邪巫术仪式，用于祈求神灵保佑、驱避灾害。
+                            </p>
+                        </div>
+                        <div class="md:pl-12 hidden md:block"></div>
+                    </div>
+                </div>
+                
+                <!-- 时间点2 -->
+                <div class="relative mb-16">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-accent z-10"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right md:pr-12 hidden md:block"></div>
+                        <div class="md:pl-12">
+                            <h3 class="text-2xl font-mashan text-accent mb-2">商周时期</h3>
+                            <p class="text-stone-300">
+                                傩仪式成为国家礼仪制度的重要组成部分，《周礼》中已有关于"方相氏"主持傩仪的记载。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间点3 -->
+                <div class="relative mb-16">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-accent z-10"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right md:pr-12">
+                            <h3 class="text-2xl font-mashan text-accent mb-2">秦汉时期</h3>
+                            <p class="text-stone-300">
+                                傩仪进一步发展完善，形成了"大傩"仪式，规模宏大，参与人数众多，仪式流程更加规范化。
+                            </p>
+                        </div>
+                        <div class="md:pl-12 hidden md:block"></div>
+                    </div>
+                </div>
+                
+                <!-- 时间点4 -->
+                <div class="relative mb-16">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-accent z-10"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right md:pr-12 hidden md:block"></div>
+                        <div class="md:pl-12">
+                            <h3 class="text-2xl font-mashan text-accent mb-2">唐宋时期</h3>
+                            <p class="text-stone-300">
+                                傩文化开始向艺术化方向发展，傩舞、傩戏逐渐形成，出现了具有故事情节的表演形式。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间点5 -->
+                <div class="relative">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-accent z-10"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right md:pr-12">
+                            <h3 class="text-2xl font-mashan text-accent mb-2">明清至今</h3>
+                            <p class="text-stone-300">
+                                傩文化形成了丰富多样的地方特色品种，成为民间文化的重要组成部分，近年来受到国家和社会的重视与保护。
+                            </p>
+                        </div>
+                        <div class="md:pl-12 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-2xl font-mashan mb-6">关于傩戏</h3>
+                    <p class="text-stone-300 mb-6">
+                        源于古傩仪的民俗戏剧，
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="../web大作业/首页.html" class="text-stone-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="../web大作业/溯源.html" class="text-stone-300 hover:text-white transition-colors">溯源</a></li>
+                        <li><a href="../web大作业/赏器.html" class="text-stone-300 hover:text-white transition-colors">赏器</a></li>
+                        <li><a href="../web大作业/展演.html" class="text-stone-300 hover:text-white transition-colors">展演</a></li>
+                        <li><a href="../web大作业/守艺.html" class="text-stone-300 hover:text-white transition-colors">守艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">联系方式</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">浙江省温州市温州商学院</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">6666-1234567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">nuo_culture@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">订阅我们</h4>
+                    <p class="text-stone-300 mb-4">
+                        订阅我们的电子报，获取最新的傩文化资讯和活动信息。
+                    </p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="请输入您的邮箱" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                            <button type="submit" class="bg-accent hover:bg-primary transition-colors px-4 py-2 rounded-r-lg">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-stone-400 text-sm">
+                        我们尊重您的隐私，不会向第三方分享您的信息。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center">
+                <p class="text-stone-400">
+                    &copy; 2025 傩·迹 - 中国传统傩文化. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+        <i class="fa fa-angle-up text-xl"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 点击菜单项后关闭菜单
+            const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+        
+        // 返回顶部按钮
+        function initBackToTop() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // 平滑滚动
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // 考虑导航栏高度
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // DOM加载完成后初始化功能
+        document.addEventListener('DOMContentLoaded', function() {
+            initMobileMenu();
+            initBackToTop();
+            initSmoothScroll();
+        });
+    </script>
+</body>
+</html>

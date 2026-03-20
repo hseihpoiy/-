@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+.font-mashan { font-family: 'Ma Shan Zheng', cursive; }
+.font-serif-sc { font-family: 'Noto Serif SC', serif; }
+
+/* 自定义样式 */
+.text-shadow { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+.bg-overlay { background-color: rgba(0, 0, 0, 0.4); }
+
+/* 导航链接下划线动画 */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #d97706;
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* 轮播图相关样式 */
+.carousel { position: relative; overflow: hidden; }
+.carousel-inner { display: flex; transition: transform 0.5s ease; }
+.carousel-item { min-width: 100%; }
+
+/* 轮播指示器样式 */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background-color: white;
+}
+
+/* 轮播控制按钮样式 */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.carousel-control-prev { left: 20px; }
+.carousel-control-next { right: 20px; }
+
+/* 面具卡片悬停效果 */
+.mask-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.mask-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 视频播放按钮 */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: white;
+}
+.play-button::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 25px;
+    border-color: transparent transparent transparent #92400e;
+}
+
+/* 视频轮播样式 */
+.video-carousel {
+    position: relative;
+    overflow: hidden;
+    height: 70vh;
+    min-height: 500px;
+    margin-bottom: 4rem;
+}
+.video-carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+}
+.video-carousel-item {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+}
+.video-carousel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.video-carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+.video-carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    transform: translateY(-50%);
+}
+.video-carousel-btn {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.video-carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.video-carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+.video-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.video-indicator.active {
+    background-color: white;
+}
+.audio-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+.audio-control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 剧目卡片样式 */
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+.performance-card {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.performance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.performance-img {
+    height: 250px;
+    overflow: hidden;
+}
+.performance-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.performance-card:hover .performance-img img {
+    transform: scale(1.05);
+}
+.performance-info {
+    padding: 1.5rem;
+}
+.performance-info h3 {
+    font-family: 'Ma Shan Zheng', cursive;
+    color: #b45309;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.performance-info p {
+    color: #44403c;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+.performance-info strong {
+    color: #92400e;
+}

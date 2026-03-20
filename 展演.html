@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傩·迹 - 中国传统傩文化</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="展演.css">
+    
+    <!-- 书法字体 -->
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#92400e',
+                        secondary: '#b45309',
+                        accent: '#d97706',
+                        light: '#fef3c7',
+                        dark: '#44403c'
+                    },
+                    fontFamily: {
+                        'mashan': ['Ma Shan Zheng', 'cursive'],
+                        'serif-sc': ['Noto Serif SC', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 font-serif-sc text-dark">
+     <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-mashan text-primary">傩·迹</a>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="../web大作业/首页.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+            </div>
+            
+            <!-- 用户头像 -->
+            <div class="hidden md:block">
+                <a href="../web大作业/登录.html" class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center hover:bg-stone-300 transition-colors">
+                    <i class="fa fa-user text-stone-600"></i>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 展演视频 -->
+    <section id="performance" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">傩戏展演</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+                <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                    傩戏是傩文化的重要表现形式，融合了舞蹈、音乐、戏剧等多种艺术元素，具有浓厚的民族特色和地方风格。
+                </p>
+            </div>
+            
+            <!-- 视频轮播区 -->
+            <div class="video-carousel">
+                <!-- 声音控制按钮 -->
+                <button class="audio-control" id="audioToggle">🔇</button>
+                
+                <div class="video-carousel-inner">
+                    <!-- 轮播项1 -->
+                    <div class="video-carousel-item active">
+                        <video class="video-carousel-video" autoplay muted loop>
+                            <source src="轮播图01.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-carousel-caption">
+                            <h3>傩戏</h3>
+                            <p>探索千年傩文化的神秘面纱，感受传统艺术的魅力与传承</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 轮播项2 -->
+                    <div class="video-carousel-item">
+                        <video class="video-carousel-video" autoplay muted loop>
+                            <source src="轮播图02.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-carousel-caption">
+                            <h3>傩戏《孟姜女》</h3>
+                            <p>见证傩文化</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 轮播项3 -->
+                    <div class="video-carousel-item">
+                        <video class="video-carousel-video" autoplay muted loop>
+                            <source src="轮播视频03.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-carousel-caption">
+                            <h3>傩戏</h3>
+                            <p>体验傩舞的刚劲有力，感受传统文化的生命力</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 控制按钮 -->
+                <div class="video-carousel-controls">
+                    <button class="video-carousel-btn prev-btn">❮</button>
+                    <button class="video-carousel-btn next-btn">❯</button>
+                </div>
+                
+                <!-- 指示器 -->
+                <div class="video-carousel-indicators">
+                    <div class="video-indicator active"></div>
+                    <div class="video-indicator"></div>
+                    <div class="video-indicator"></div>
+                </div>
+            </div>
+            
+            <!-- 剧目介绍区 -->
+            <div class="performance-section">
+                <div class="section-title text-center mb-12">
+                    <h2 class="text-3xl font-mashan text-primary mb-4">经典傩戏剧目</h2>
+                    <p class="text-lg text-stone-600 max-w-3xl mx-auto">探索中国各地最具代表性的傩戏表演</p>
+                </div>
+                
+                <div class="performance-grid">
+                    <!-- 剧目1 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="performance-img">
+                            <img src="捉黄鬼.jpg" alt="捉黄鬼" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>捉黄鬼</h3>
+                            <p>河北武安傩戏的代表剧目，已有千年历史。"黄鬼"象征疾病与灾祸，表演者戴着狰狞面具，手持法器，通过夸张舞蹈表现驱邪过程。多在春节期间演出，寓意驱除邪祟、祈求平安。</p>
+                            <p><strong>表演特点：</strong>动作粗犷有力，面具造型夸张，伴有锣鼓伴奏和傩歌演唱。表演包含"请神""捉鬼""送神"三个主要环节。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 剧目2 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="performance-img">
+                            <img src="孟姜女.jpg" alt="孟姜女" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>孟姜女</h3>
+                            <p>贵州德江傩堂戏经典剧目，改编自"孟姜女哭长城"的民间传说。将爱情故事与傩祭仪式完美结合，既有戏剧情节又保留祭祀功能。表演中融入大量傩戏特有的法事动作和唱腔。</p>
+                            <p><strong>表演特点：</strong>唱腔融合了贵州山歌元素，表演包含"开坛""请神""哭城"等环节，面具相对温和，突出人物性格。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 剧目3 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="performance-img">
+                            <img src="开山莽将.jpg" alt="开山莽将" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>开山莽将</h3>
+                            <p>江西南丰傩舞代表剧目，表现驱鬼逐疫的雄壮场面。"开山"指开天辟地，"莽将"则是勇猛的将军形象。表演者戴着威严面具，手持斧钺，通过刚劲有力的舞蹈表现驱邪过程。</p>
+                            <p><strong>表演特点：</strong>动作刚劲有力，面具造型威严，节奏明快，气势磅礴。舞蹈中包含大量武打动作，展现武将风采。</p>
+                        </div>
+                    </div>
+
+                    <!-- 剧目4 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="performance-img">
+                            <img src="土地公.jpg" alt="土地公" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>土地公</h3>
+                            <p>湖南湘西傩戏经典剧目，表现土地神保佑一方的故事。土地公形象慈祥，面具多为白须老者造型，表演内容多为祈求风调雨顺、五谷丰登。</p>
+                            <p><strong>表演特点：</strong>动作相对缓慢庄重，面具表情慈祥，唱腔平和。表演中常伴有祈福仪式，是湘西地区重要的民俗活动。</p>
+                        </div>
+                    </div>
+
+                    <!-- 剧目5 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="performance-img">
+                            <img src="钟馗捉鬼.jpg" alt="钟馗捉鬼" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>钟馗捉鬼</h3>
+                            <p>陕西傩戏代表剧目，展现钟馗捉鬼的传奇故事。钟馗面具造型威严中带着正气，表演内容多为驱邪镇宅、保佑平安。</p>
+                            <p><strong>表演特点：</strong>动作刚猛有力，面具红面虬髯，表演中包含大量武打场面。音乐伴奏以唢呐和锣鼓为主，气势恢宏。</p>
+                        </div>
+                    </div>
+
+                    <!-- 剧目6 -->
+                    <div class="performance-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="performance-img">
+                            <img src="傩神.jpg" alt="傩神" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>傩神</h3>
+                            <p>云南傩戏核心剧目，表现傩神驱邪纳吉的过程。傩神是傩戏中的主神，面具造型威严神圣，表演内容多为祈福消灾。</p>
+                            <p><strong>表演特点：</strong>动作庄重肃穆，面具造型夸张神秘，表演中包含大量祭祀仪式。音乐伴奏以铜鼓和法铃为主。</p>
+                        </div>
+                    </div>
+
+                    <!-- 剧目7 -->
+                     <div class="performance-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="performance-img">
+                            <img src="../web大作业/二郎神.jpg" alt="钟馗捉鬼" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>二郎神</h3>
+                            <p>>四川傩戏特有剧目，表现二郎神降妖除魔的故事。二郎神面具额头有第三只眼，手持三尖两刃刀，是四川地区重要的保护神形象。</p >
+                            <p><strong>表演特点：</strong>动作敏捷多变，面具造型独特，表演中包含大量特技动作。音乐伴奏融合了川剧高腔元素。</p >
+                        </div>
+                    </div>
+
+                    <!-- 剧目8 -->
+                      <div class="performance-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="performance-img">
+                            <img src="../web大作业/五猖会.jpg" alt="钟馗捉鬼" class="w-full h-full object-cover">
+                        </div>
+                        <div class="performance-info">
+                            <h3>五猖会</h3>
+                            <p>安徽贵池傩戏特有剧目，表现五猖神捉拿恶鬼的故事。五猖神是五位凶神，面具造型狰狞可怖，专门负责捉拿危害人间的恶鬼。</p >
+                            <p><strong>表演特点：</strong>动作狂放不羁，面具造型夸张恐怖，表演风格粗犷豪放。音乐伴奏以锣鼓为主，节奏强烈。</p >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-mashan text-primary mb-4">联系我们</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+                <p class="mt-6 text-lg text-stone-600 max-w-3xl mx-auto">
+                    如果您对傩文化感兴趣，或者想了解更多关于傩文化的信息，欢迎随时联系我们。
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <!-- 联系信息 -->
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-map-marker text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">地址</h4>
+                                    <p class="text-stone-600">浙江省温州市温州商学院</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-phone text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">电话</h4>
+                                    <p class="text-stone-600">6666-1234567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">邮箱</h4>
+                                    <p class="text-stone-600">nuo_culture@qq.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-clock-o text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-serif-sc font-bold mb-1">开放时间</h4>
+                                    <p class="text-stone-600">周一至周五: 9:00 - 17:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-serif-sc font-bold mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-weibo"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-wechat"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-youtube-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 留言表单 -->
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-stone-50 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-mashan text-secondary mb-6">给我们留言</h3>
+                        
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-stone-700 font-serif-sc mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的姓名">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="email" class="block text-stone-700 font-serif-sc mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的邮箱">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-stone-700 font-serif-sc mb-2">主题</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入留言主题">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-stone-700 font-serif-sc mb-2">留言内容</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入您的留言内容"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-8 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-serif-sc">
+                                提交留言
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-2xl font-mashan mb-6">傩·迹</h3>
+                    <p class="text-stone-300 mb-6">
+                        傩·迹是一个致力于传承和弘扬中国传统傩文化的平台，我们希望通过展示傩文化的魅力，让更多人了解和喜爱这一珍贵的文化遗产。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+             <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="../web大作业/首页.html" class="text-stone-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="../web大作业/溯源.html" class="text-stone-300 hover:text-white transition-colors">溯源</a></li>
+                        <li><a href="../web大作业/赏器.html" class="text-stone-300 hover:text-white transition-colors">赏器</a></li>
+                        <li><a href="../web大作业/展演.html" class="text-stone-300 hover:text-white transition-colors">展演</a></li>
+                        <li><a href="../web大作业/守艺.html" class="text-stone-300 hover:text-white transition-colors">守艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">联系方式</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">浙江省温州市温州商学院</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">6666-1234567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">nuo_culture@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">订阅我们</h4>
+                    <p class="text-stone-300 mb-4">
+                        订阅我们的电子报，获取最新的傩文化资讯和活动信息。
+                    </p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="请输入您的邮箱" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                            <button type="submit" class="bg-accent hover:bg-primary transition-colors px-4 py-2 rounded-r-lg">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-stone-400 text-sm">
+                        我们尊重您的隐私，不会向第三方分享您的信息。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center">
+                <p class="text-stone-400">
+                    &copy; 2025 傩·迹 - 中国传统傩文化. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-angle-up text-xl"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 初始化AOS动画库
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // 轮播图功能
+            const carousel = document.querySelector('.carousel');
+            if (carousel) {
+                const carouselInner = carousel.querySelector('.carousel-inner');
+                const carouselItems = carousel.querySelectorAll('.carousel-item');
+                const indicators = carousel.querySelectorAll('.carousel-indicator');
+                const prevButton = carousel.querySelector('.carousel-control-prev');
+                const nextButton = carousel.querySelector('.carousel-control-next');
+                
+                let currentIndex = 0;
+                const itemCount = carouselItems.length;
+                
+                // 设置轮播图宽度
+                carouselItems.forEach(item => {
+                    item.style.width = '100%';
+                });
+                
+                // 更新轮播图位置
+                function updateCarousel() {
+                    carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    
+                    // 更新指示器状态
+                    indicators.forEach((indicator, index) => {
+                        if (index === currentIndex) {
+                            indicator.classList.add('active');
+                        } else {
+                            indicator.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // 下一张
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % itemCount;
+                    updateCarousel();
+                }
+                
+                // 上一张
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                    updateCarousel();
+                }
+                
+                // 点击指示器切换
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // 绑定按钮事件
+                if (prevButton) prevButton.addEventListener('click', prevSlide);
+                if (nextButton) nextButton.addEventListener('click', nextSlide);
+                
+                // 自动轮播
+                let autoplayInterval = setInterval(nextSlide, 5000);
+                
+                // 鼠标悬停时暂停自动轮播
+                carousel.addEventListener('mouseenter', () => {
+                    clearInterval(autoplayInterval);
+                });
+                
+                // 鼠标离开时恢复自动轮播
+                carousel.addEventListener('mouseleave', () => {
+                    autoplayInterval = setInterval(nextSlide, 5000);
+                });
+            }
+            
+            // 移动端菜单
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // 返回顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            if (backToTopButton) {
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.remove('opacity-0', 'invisible');
+                        backToTopButton.classList.add('opacity-100', 'visible');
+                    } else {
+                        backToTopButton.classList.remove('opacity-100', 'visible');
+                        backToTopButton.classList.add('opacity-0', 'invisible');
+                    }
+                });
+                
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // 视频轮播功能（带音频控制）
+            const videoCarousel = document.querySelector('.video-carousel');
+            if (videoCarousel) {
+                const videoInner = videoCarousel.querySelector('.video-carousel-inner');
+                const videoItems = videoCarousel.querySelectorAll('.video-carousel-item');
+                const videoIndicators = videoCarousel.querySelectorAll('.video-indicator');
+                const prevBtn = videoCarousel.querySelector('.prev-btn');
+                const nextBtn = videoCarousel.querySelector('.next-btn');
+                const audioToggle = videoCarousel.querySelector('#audioToggle');
+                
+                let currentVideoIndex = 0;
+                const videoCount = videoItems.length;
+                let isAudioEnabled = false;
+                
+                // 更新视频轮播位置
+                function updateVideoCarousel() {
+                    videoInner.style.transform = `translateX(-${currentVideoIndex * 100}%)`;
+                    
+                    // 更新指示器状态
+                    videoIndicators.forEach((indicator, index) => {
+                        if (index === currentVideoIndex) {
+                            indicator.classList.add('active');
+                        } else {
+                            indicator.classList.remove('active');
+                        }
+                    });
+                    
+                    // 控制当前视频音频
+                    controlCurrentVideoAudio();
+                }
+                
+                // 控制当前视频音频
+                function controlCurrentVideoAudio() {
+                    // 先静音所有视频
+                    const allVideos = document.querySelectorAll('.video-carousel-video');
+                    allVideos.forEach(video => {
+                        video.muted = true;
+                    });
+                    
+                    // 如果启用了音频，则取消当前视频静音
+                    if (isAudioEnabled) {
+                        const currentVideo = videoItems[currentVideoIndex].querySelector('.video-carousel-video');
+                        if (currentVideo) {
+                            currentVideo.muted = false;
+                            // 确保视频在启用音频时继续播放
+                            if (currentVideo.paused) {
+                                currentVideo.play().catch(e => console.log('Auto-play prevented:', e));
+                            }
+                        }
+                    }
+                }
+                
+                // 下一视频
+                function nextVideo() {
+                    currentVideoIndex = (currentVideoIndex + 1) % videoCount;
+                    updateVideoCarousel();
+                }
+                
+                // 上一视频
+                function prevVideo() {
+                    currentVideoIndex = (currentVideoIndex - 1 + videoCount) % videoCount;
+                    updateVideoCarousel();
+                }
+                
+                // 点击指示器切换
+                videoIndicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentVideoIndex = index;
+                        updateVideoCarousel();
+                    });
+                });
+                
+                // 绑定按钮事件
+                if (prevBtn) prevBtn.addEventListener('click', prevVideo);
+                if (nextBtn) nextBtn.addEventListener('click', nextVideo);
+                
+                // 自动轮播
+                let videoAutoplayInterval = setInterval(nextVideo, 5000);
+                
+                // 鼠标悬停时暂停自动轮播
+                videoCarousel.addEventListener('mouseenter', () => {
+                    clearInterval(videoAutoplayInterval);
+                });
+                
+                // 鼠标离开时恢复自动轮播
+                videoCarousel.addEventListener('mouseleave', () => {
+                    videoAutoplayInterval = setInterval(nextVideo, 5000);
+                });
+                
+                // 音频控制
+                if (audioToggle) {
+                    audioToggle.addEventListener('click', () => {
+                        isAudioEnabled = !isAudioEnabled;
+                        controlCurrentVideoAudio();
+                        // 更新按钮图标
+                        audioToggle.textContent = isAudioEnabled ? '🔊' : '🔇';
+                    });
+                }
+                
+                // 初始化
+                updateVideoCarousel();
+            }
+        });
+    </script>
+</body>
+</html>

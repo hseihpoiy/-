@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博物馆赏器</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- 书法字体 -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap');
+        
+        .font-mashan {
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .font-serif-sc {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 自定义样式 */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #d97706;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)), 
+                        url('../web大作业/背景001.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #92400e;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            font-weight: 300;
+            color: #44403c;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: #92400e;
+            border: 2px solid #92400e;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #92400e;
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: white;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(68, 64, 60, 0.7);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        /* 板块通用样式 */
+        .section {
+            min-height: 100vh;
+            padding: 120px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 80px;
+            position: relative;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #44403c;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #92400e;
+        }
+
+        /* 面具画廊 */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            background: white;
+            border: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(201, 169, 110, 0.3);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #fef3c7;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* 戏服荟萃 */
+        .costume-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .costume-carousel {
+            position: relative;
+            height: 550px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: white;
+            border: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .costume-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .costume-slide.active {
+            opacity: 1;
+        }
+
+        .costume-img {
+            width: 45%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .costume-slide.active .costume-img {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .costume-info {
+            width: 55%;
+            padding: 0 40px;
+        }
+
+        .costume-slide.active .costume-info {
+            animation: slideInRight 0.8s ease-out 0.3s both;
+        }
+
+        .costume-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #92400e;
+            font-weight: 400;
+        }
+
+        .costume-info p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #44403c;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+
+        .carousel-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(68, 64, 60, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .carousel-dot.active {
+            background: #92400e;
+            transform: scale(1.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #44403c;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-btn:hover {
+            background: white;
+            color: #92400e;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 25px;
+        }
+
+        .carousel-next {
+            right: 25px;
+        }
+
+        /* 工艺解密 */
+        .process-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .process-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            gap: 20px;
+        }
+
+        .process-tab {
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(68, 64, 60, 0.1);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: #44403c;
+        }
+
+        .process-tab.active {
+            background: rgba(146, 64, 14, 0.1);
+            border-color: #92400e;
+            color: #92400e;
+            box-shadow: 0 5px 15px rgba(146, 64, 14, 0.1);
+        }
+
+        .process-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .process-content.active {
+            display: block;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 70px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .process-step:hover {
+            border-color: rgba(201, 169, 110, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-step:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .process-img {
+            width: 40%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .process-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .process-text {
+            width: 60%;
+            padding: 0 40px;
+        }
+
+        .process-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #92400e;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+        }
+
+        .process-text h3::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #92400e;
+            border-radius: 50%;
+            margin-right: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .process-step:nth-child(1) .process-text h3::before {
+            content: '1';
+        }
+        .process-step:nth-child(2) .process-text h3::before {
+            content: '2';
+        }
+        .process-step:nth-child(3) .process-text h3::before {
+            content: '3';
+        }
+
+        .process-text p {
+            line-height: 1.7;
+            font-size: 1.05rem;
+            color: #44403c;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #92400e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: #b45309;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .costume-slide {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .costume-img, .costume-info {
+                width: 100%;
+            }
+
+            .costume-info {
+                padding: 20px 0;
+            }
+
+            .process-step, .process-step:nth-child(odd) {
+                flex-direction: column;
+            }
+
+            .process-img, .process-text {
+                width: 100%;
+            }
+
+            .process-text {
+                padding: 20px 0;
+            }
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#92400e',
+                        secondary: '#b45309',
+                        accent: '#d97706',
+                        light: '#fef3c7',
+                        dark: '#44403c'
+                    },
+                    fontFamily: {
+                        'mashan': ['Ma Shan Zheng', 'cursive'],
+                        'serif-sc': ['Noto Serif SC', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 font-serif-sc text-dark">
+     <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-mashan text-primary">傩·迹</a>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8">
+                <a href="../web大作业/首页.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="nav-link text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+            </div>
+            
+            <!-- 用户头像 -->
+            <div class="hidden md:block">
+                <a href="../web大作业/登录.html" class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center hover:bg-stone-300 transition-colors">
+                    <i class="fa fa-user text-stone-600"></i>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-dark focus:outline-none">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="../web大作业/首页.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">首页</a>
+                <a href="../web大作业/溯源.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">溯源</a>
+                <a href="../web大作业/赏器.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">赏器</a>
+                <a href="../web大作业/展演.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">展演</a>
+                <a href="../web大作业/守艺.html" class="py-2 text-lg font-serif-sc hover:text-accent transition-colors">守艺</a>
+                <div class="py-2 flex items-center">
+                    <i class="fa fa-user text-stone-600 mr-2"></i>
+                    <span class="font-serif-sc">个人中心</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>传统艺术珍品</h1>
+            <p>探索中国传统文化中的面具艺术、精美戏服与独特工艺，感受千年文化底蕴与匠人精神</p>
+            <a href="#mask-gallery" class="cta-button">开始探索</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <i class="fa fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- 面具画廊 -->
+    <section id="mask-gallery" class="section bg-white">
+        <h2 class="section-title">面具画廊</h2>
+        <div class="gallery-container">
+            <!-- 面具图片替换位置 1 -->
+            <div class="gallery-item">
+                <img src='../web大作业/面具抠图——龙.png' alt="面具1" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h3>龙</h3>
+                    <p>龙头鱼身，鳞片闪耀，四肢似鱼爪翻江倒海</p>
+                </div>
+            </div>
+            
+            <!-- 面具图片替换位置 2 -->
+            <div class="gallery-item">
+                <img src="../web大作业/面具抠图——麒麟.png" alt="面具2" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h3>麒麟</h3>
+                    <p>龙头马身，鹿角鱼鳞，四肢象蹄祥瑞之兽</p>
+                </div>
+            </div>
+            
+            <!-- 面具图片替换位置 3 -->
+            <div class="gallery-item">
+                <img src="../web大作业/面具抠图——花豹.png" alt="面具3" class="gallery-img" >
+                <div class="gallery-overlay">
+                    <h3>花豹</h3>
+                    <p>身躯修长，毛如绸缎，眼神犀利矫健</p>
+                </div>
+            </div>
+            
+            <!-- 面具图片替换位置 4 -->
+            <div class="gallery-item">
+                <img src="../web大作业/抠图面具凤凰.png" alt="面具4" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h3>凤凰</h3>
+                    <p>展翅高飞，羽翼丰满，尾羽飘逸高贵典雅</p>
+                </div>
+            </div>
+            
+            <!-- 面具图片替换位置 5 -->
+            <div class="gallery-item">
+                <img src="../web大作业/面具抠图——力大元.png" alt="面具5" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h3>金刚</h3>
+                    <p>力大无穷，目光炯炯。身披铠甲，威风凛凛</p>
+                </div>
+            </div>
+            
+            <!-- 面具图片替换位置 6 -->
+            <div class="gallery-item">
+                <img src="../web大作业/面具抠图——开山怪.png" alt="面具6" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h3>开山怪</h3>
+                    <p>威武雄壮，面目狰狞，手持石斧，勇猛善战。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 戏服荟萃 -->
+    <section id="costume-collection" class="section bg-stone-50">
+        <h2 class="section-title">戏服荟萃</h2>
+        <div class="costume-container">
+            <div class="costume-carousel">
+                <!-- 戏服轮播项 1 -->
+                <div class="costume-slide active">
+                    <!-- 戏服图片替换位置 1 -->
+                    <img src="../web大作业/神灵类.jpg" alt="戏服1" class="costume-img">
+                    <div class="costume-info">
+                        <h3>神灵类‌</h3>
+                        <p>如关公、玉皇大帝，穿蟒袍（缎面刺绣，红金黑主色），配兽头护肩、龙凤纹样，象征威严神圣。‌‌</p>
+                        <p>‌神灵类角色多体现威严与神圣，服饰以红、金、黄等暖色调为主，象征权威与吉祥。典型如傩母(南山圣母)，白脸女性形象，头饰精美典雅，鸭蛋脸型配柳眉杏眼，象征包容万物的圣母特质;又如点兵仙官，面具设计夸张，色彩浓烈，配以羽毛、珠饰，强化神圣感与指挥军队的仪式性。法衣常见龙纹、凤纹刺绣，寓意权力与高贵，材质多用丝绸或棉布，逸质感突出</p>
+                    </div>
+                </div>
+                
+                <!-- 戏服轮播项 2 -->
+                <div class="costume-slide">
+                    <!-- 戏服图片替换位置 2 -->
+                    <img src="../web大作业/鬼怪类.jpg" alt="戏服2" class="costume-img">
+                    <div class="costume-info">
+                        <h3>鬼怪类</h3>
+                        <p>如大鬼、黄鬼，用杂色破布或明黄缎面坎肩（绘虎皮纹、斑马纹），搭配稻草、兽毛，突出诡异恐怖。‌‌</p>
+                        <p>鬼怪类角色造型狰狞，服饰以黑、绿等冷色调为主，传递恐怖与威慑。例如恶鬼面具，面容扭曲，色彩暗沉，多搭配虎皮纹路坎肩或斑马纹装饰，凸显怪异凌厉。黄鬼角色常穿明黄色紧身坎肩，涂满黄色颜料，呈现瘦骨嶙峋、瑟瑟发抖的形态，强化驱邪避疫的原始主题。配饰如铁锁链、钢又等道具，进一步渲染神秘氛围</p>
+                    </div>
+                </div>
+                
+                <!-- 戏服轮播项 3 -->
+                <div class="costume-slide">
+                    <!-- 戏服图片替换位置 3 -->
+                    <img src="../web大作业/世俗角色类.jpg" alt="戏服3" class="costume-img">
+                    <div class="costume-info">
+                        <h3>世俗角色类</h3>
+                        <p>如土地公、丑角，仿明代官衣、长袍，设计简朴滑稽，融入补丁衣等元素。‌‌</p>
+                        <p>世俗角色服饰贴近生活，色彩朴素，款式仿明代服装。如歪嘴秦童，小丑造型头歪，斜眉咧牙，腰围衩子，手拿褂子，以顽童打扮制造喜剧效果;杨泗代表书生形象，服饰简洁，对襟长衫或开襟长衫，突出朴实气质2。部分角色如土地公，慈祥老者形象，圆帽配斑白长须，法衣绣云纹，寓意敦厚安详。材质多用棉布，轻便实用，适应表演灵活性。</p>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn carousel-prev"><i class="fa fa-chevron-left"></i></button>
+                <button class="carousel-btn carousel-next"><i class="fa fa-chevron-right"></i></button>
+                
+                <div class="carousel-nav">
+                    <div class="carousel-dot active" data-index="0"></div>
+                    <div class="carousel-dot" data-index="1"></div>
+                    <div class="carousel-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工艺解密 -->
+    <section id="process-reveal" class="section bg-white">
+        <h2 class="section-title">工艺解密</h2>
+        <div class="process-container">
+            <div class="process-tabs">
+                <div class="process-tab active" data-tab="mask-making">面具制作</div>
+                <div class="process-tab" data-tab="costume-making">戏服制作</div>
+                <div class="process-tab" data-tab="embroidery">刺绣工艺</div>
+            </div>
+            
+            <div class="process-content active" id="mask-making">
+                <!-- 工艺步骤 1 -->
+                <div class="process-step" style="animation-delay: 0.2s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 1 -->
+                        <img src="../web大作业/选材.jpg" alt="选材">
+                    </div>
+                    <div class="process-text">
+                        <h3>选材</h3>
+                        <p>传统面具制作通常选用优质木材、皮革或纸张作为基础材料。选材时需要考虑材料的质地、耐久性和可塑性，确保最终作品既有艺术价值又能长久保存。不同地区的面具制作会选择当地特有的材料，形成了各具特色的地方风格。</p>
+                    </div>
+                </div>
+                
+                <!-- 工艺步骤 2 -->
+                <div class="process-step" style="animation-delay: 0.4s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 2 -->
+                        <img src="../web大作业/雕刻.jpg" alt="雕刻">
+                    </div>
+                    <div class="process-text">
+                        <h3>雕刻</h3>
+                        <p>雕刻是面具制作的核心环节。工匠根据设计图纸，运用各种雕刻工具在材料上精雕细琢，塑造出面具的基本形态和面部特征。这一过程需要极高的技艺和耐心。传统面具雕刻往往遵循特定的文化符号和象征意义，每一个细节都有其特定的文化内涵。</p>
+                    </div>
+                </div>
+                
+                <!-- 工艺步骤 3 -->
+                <div class="process-step" style="animation-delay: 0.6s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 3 -->
+                        <img src="../web大作业/上色.jpg" alt="上色">
+                    </div>
+                    <div class="process-text">
+                        <h3>上色</h3>
+                        <p>上色是赋予面具生命的关键步骤。传统面具多使用天然矿物颜料，色彩鲜艳且持久。上色过程需要多层渲染，每一层都要等待完全干燥后再进行下一层，确保色彩饱满均匀。不同颜色的使用有着严格的传统规定，反映了特定的文化象征意义。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-content" id="costume-making">
+                <!-- 戏服制作内容 -->
+                <div class="process-step" style="animation-delay: 0.2s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 4 -->
+                        <img src="../web大作业/设计.jpg" alt="设计">
+                    </div>
+                    <div class="process-text">
+                        <h3>设计</h3>
+                        <p>戏服设计需要根据角色性格、身份和剧情需要进行。设计师会参考历史文献和传统图案，结合现代审美，创作出既传统又符合当代舞台需求的戏服设计图。传统戏服设计遵循严格的规制，不同身份、地位的角色有着不同的服饰要求。</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" style="animation-delay: 0.4s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 5 -->
+                        <img src="../web大作业/剪裁.jpg" alt="裁剪">
+                    </div>
+                    <div class="process-text">
+                        <h3>裁剪</h3>
+                        <p>裁剪是戏服制作的基础。工匠根据设计图纸，选择合适的布料，按照传统裁剪方法进行剪裁。这一步骤决定了戏服的基本版型和穿着舒适度。传统戏服的裁剪遵循特定的比例和结构，既考虑美观性，也考虑演员在舞台上的活动需求。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-content" id="embroidery">
+                <!-- 刺绣工艺内容 -->
+                <div class="process-step" style="animation-delay: 0.2s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 6 -->
+                        <img src="../web大作业/图案设计.jpg" alt="图案设计">
+                    </div>
+                    <div class="process-text">
+                        <h3>图案设计</h3>
+                        <p>刺绣工艺始于图案设计。设计师根据戏服的整体风格和角色特点，设计出精美的刺绣图案。传统刺绣图案多取材于自然景物、神话传说和历史故事。不同地区的刺绣有着独特的风格特点，形成了丰富多彩的刺绣艺术流派。</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" style="animation-delay: 0.4s">
+                    <div class="process-img">
+                        <!-- 工艺图片替换位置 7 -->
+                        <img src="../web大作业/刺绣.jpg" alt="刺绣">
+                    </div>
+                    <div class="process-text">
+                        <h3>刺绣</h3>
+                        <p>刺绣是戏服制作中最耗时的环节。工匠使用各种刺绣针法，一针一线地将设计图案绣在布料上。传统刺绣工艺需要极高的技巧和耐心，一件精美的戏服可能需要数月甚至数年才能完成。不同针法的运用能够创造出丰富的纹理和立体效果，使戏服更加生动逼真。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 关于我们 -->
+                <div>
+                    <h3 class="text-2xl font-mashan mb-6">傩·迹</h3>
+                    <p class="text-stone-300 mb-6">
+                        傩·迹是一个致力于传承和弘扬中国传统傩文化的平台，我们希望通过展示傩文化的魅力，让更多人了解和喜爱这一珍贵的文化遗产。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-300 hover:text-white transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="../web大作业/首页.html" class="text-stone-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="../web大作业/溯源.html" class="text-stone-300 hover:text-white transition-colors">溯源</a></li>
+                        <li><a href="../web大作业/赏器.html" class="text-stone-300 hover:text-white transition-colors">赏器</a></li>
+                        <li><a href="../web大作业/展演.html" class="text-stone-300 hover:text-white transition-colors">展演</a></li>
+                        <li><a href="../web大作业/守艺.html" class="text-stone-300 hover:text-white transition-colors">守艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">联系方式</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">浙江省温州市温州商学院</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">6666-1234567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-accent mt-1 mr-3"></i>
+                            <span class="text-stone-300">nuo_culture@qq.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 订阅 -->
+                <div>
+                    <h4 class="text-xl font-mashan mb-6">订阅我们</h4>
+                    <p class="text-stone-300 mb-4">
+                        订阅我们的电子报，获取最新的傩文化资讯和活动信息。
+                    </p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="请输入您的邮箱" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                            <button type="submit" class="bg-accent hover:bg-primary transition-colors px-4 py-2 rounded-r-lg">
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-stone-400 text-sm">
+                        我们尊重您的隐私，不会向第三方分享您的信息。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center">
+                <p class="text-stone-400">
+                    &copy; 2025 傩·迹 - 中国传统傩文化. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // 初始化AOS动画库
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // 移动端菜单
+            initMobileMenu();
+            
+            // 返回顶部按钮
+            initBackToTop();
+            
+            // 轮播功能
+            initCarousel();
+            
+            // 工艺解密标签切换
+            initProcessTabs();
+            
+            // 滚动动画
+            initScrollAnimations();
+            
+            // 画廊项目悬停效果增强
+            initGalleryHover();
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 100) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // 返回顶部功能
+        document.querySelector('.back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 轮播功能
+        function initCarousel() {
+            const slides = document.querySelectorAll('.costume-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentSlide = 0;
+            let autoPlayInterval;
+            
+            // 切换幻灯片
+            function showSlide(index) {
+                // 移除当前活动状态
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                
+                // 更新当前索引
+                currentSlide = index;
+                
+                // 添加新的活动状态
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            // 下一张幻灯片
+            function nextSlide() {
+                let nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+            
+            // 上一张幻灯片
+            function prevSlide() {
+                let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            }
+            
+            // 为每个指示点添加点击事件
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    resetAutoPlay();
+                });
+            });
+            
+            // 为按钮添加事件
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetAutoPlay();
+            });
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetAutoPlay();
+            });
+            
+            // 自动轮播
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 6000);
+            }
+            
+            function resetAutoPlay() {
+                clearInterval(autoPlayInterval);
+                startAutoPlay();
+            }
+            
+            startAutoPlay();
+        }
+        
+        // 工艺解密标签切换
+        function initProcessTabs() {
+            const tabs = document.querySelectorAll('.process-tab');
+            const contents = document.querySelectorAll('.process-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有活动状态
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // 添加当前活动状态
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        // 滚动动画
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // 观察所有需要动画的元素
+            document.querySelectorAll('.process-step').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // 画廊项目悬停效果增强
+        function initGalleryHover() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+        
+        // 移动端菜单
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                
+                // 点击菜单项后关闭菜单
+                const mobileMenuItems = mobileMenu.querySelectorAll('a');
+                mobileMenuItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+        }
+        
+        // 返回顶部按钮
+        function initBackToTop() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            if (backToTopButton) {
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
